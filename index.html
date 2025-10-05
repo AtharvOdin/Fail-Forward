@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fail Forward | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="assets/images/history-logo.png" alt="History Gallery logo" style="height: 70px;" />
+            <span style="font-size: 2.0rem; font-weight: 500;; font-family:fantasy">Fail Forward</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="Failures.html">Failures</a>
+        <a href="Events.html">Events</a>
+        <a href="Recoveries.html">Recoveries</a>
+        <a href="chat.html">Chat</a>
+        <a href="game.html">Game</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Explore the Failures of Our Past</h1>
+        <h4>Discover the failures of the people who shaped history, what it led to, and how they recovered.</h4>
+        <a href="Failures.html" class="cta-button">Start Exploring</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="card">
+        <h2>Failed Events</h2>
+        <p>When failure scales up, the consequences can be devastating. This gallery explores real-world disasters where missteps led to tragedy. Tap below to learn about these cautionary tales.</p>
+        <a href="Events.html" class="cta-button">Events</a>
+      </article>
+      <article class="card">
+        <h2>Recoveries from Failures</h2>
+        <p>Failure isn’t the finale—it’s the setup for a comeback. This section celebrates the grit, growth, and genius behind every rebound. Tap below to see how famous figures turned setbacks into legendary comebacks.</p>
+        <a href="Recoveries.html" class="cta-button">Recoveries</a>
+      </article>
+      <article class="card">
+        <h2>Chat with Others</h2>
+        <p>Failure can feel isolating—but it’s more common than you think. This chat space connects you with real people who’ve stumbled, struggled, and come out stronger. Tap below to share your story, ask questions, or just listen.</p>
+        <a href="chat.html" class="cta-button">Chat</a>
+      </article>
+      <article class="card">
+        <h2>Play a Game</h2>
+        <p>Life doesn’t hand you just one shot—it’s a series of chances, retries, and unexpected turns. This game lets you keep going, no matter how many times you fall. Every level, every restart, every new path is a reminder: opportunity doesn’t expire. Tap below to Play on, Grow and Begin again.</p>
+        <a href="game.html" class="cta-button">Play</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Fail Forward. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

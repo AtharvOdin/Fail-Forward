@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fail Forward | Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+
+
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script defer src="init-firebase.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="assets/images/history-logo.png" alt="History Gallery logo" style="height: 70px;" />
+            <span style="font-size: 2.0rem; font-weight: 500;; font-family:fantasy">Fail Forward</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="Failures.html">Failures</a>
+        <a href="Events.html">Events</a>
+        <a href="Recoveries.html">Recoveries</a>
+        <a href="chat.html">Chat</a>
+        <a href="game.html">Game</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="content">
+    <header class="page-header">
+      <h1 id="title">Un-Fail Chat</h1>
+      <h4>Failure can feel isolating—but it’s more common than you think. This chat space connects you with real people who’ve stumbled, struggled, and come out stronger. Share your story, ask questions, or just listen.</h4>
+    </header>
+
+    <section class="grid two-col">
+      <article class="info">
+        <h2>Messages</h2>
+        <div id="all-messages" role="log" aria-live="polite" aria-relevant="additions text">
+          <!-- Messages appear here -->
+        </div>
+      </article>
+
+      <article class="info">
+        <h2>Compose</h2>
+        <form id="chat-form" novalidate>
+          <div class="input-container">
+            <label for="username"><strong>Username:</strong></label>
+            <input type="text" id="username" autocomplete="nickname" />
+          </div>
+
+          <div class="input-container">
+            <label for="message"><strong>Message:</strong></label>
+            <input type="text" id="message" autocomplete="off" />
+          </div>
+
+          <div class="input-container">
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" autocomplete="email" />
+          </div>
+
+          <div class="input-container">
+            <label for="profile"><strong>Profile image URL:</strong></label>
+            <img id="preview-image" alt="Profile preview" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+            <input type="url" id="profile" placeholder="Enter image URL"
+              value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+          </div>
+
+          <button id="send-btn" type="button">Send</button>
+        </form>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Fail Forward. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const imagePreview = document.getElementById('preview-image');
+    const imageInput = document.getElementById('profile');
+    imageInput.addEventListener('input', () => {
+      imagePreview.src = imageInput.value || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+    });
+  </script>
+</body>
+</html>
