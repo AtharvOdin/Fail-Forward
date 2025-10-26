@@ -3,10 +3,10 @@
   --primary: #d95f5f;     /* warm red (setback) */
   --secondary: #f2b84b;   /* golden orange (resilience) */
   --accent: #2c2c54;      /* deep indigo (focus/spotlight) */
-  --bg: #7173f5b1;          /* soft parchment background (gallery vibe) */
+  --bg: #7173f5b1;        /* soft parchment background (gallery vibe) */
   --text: #2b0e0e;        /* dark brown (warm, readable) */
   --muted: #9c6f4e;       /* bronze (captions/secondary) */
-  --white: #0ad4b298;       /* clean panel white */
+  --white: #0ad4b298;     /* clean panel white */
 }
 
 /* Respect user motion preferences */
@@ -19,11 +19,12 @@
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
 }
 
 /* Base */
 body {
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
@@ -52,7 +53,7 @@ body {
 /* Header and nav */
 .site-header {
   background: var(--white);
-  border-bottom: 1px solid rgba(44,44,84,0.18); /* subtle indigo */
+  border-bottom: 1px solid rgba(44,44,84,0.18);
 }
 
 .nav {
@@ -89,7 +90,7 @@ body {
 .nav a:hover,
 .nav a[aria-current="page"] {
   color: var(--accent);
-  background-color: rgba(34, 95, 248, 0.384); /* warm highlight */
+  background-color: rgba(34, 95, 248, 0.384);
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(10, 169, 255, 0.287);
 }
@@ -150,7 +151,7 @@ body {
 .hero p {
   font-size: clamp(16px, 2.2vw, 20px);
   margin: 0 0 24px;
-  color: #6b3f28; /* richer caption tone against gradient */
+  color: #6b3f28;
 }
 .cta-button {
   display: inline-block;
@@ -187,29 +188,25 @@ body {
   gap: 20px;
 }
 .features { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
-/* Two-column grid: two columns on wider screens, single column on small screens */
+
 .grid.two-col {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px; /* adjust spacing between columns and rows */
+  gap: 24px;
   align-items: start;
 }
 
-/* Ensure each .info article occupies a single grid cell */
 .grid.two-col .info {
   break-inside: avoid;
 }
 
-/* Responsive: stack to one column on narrow viewports */
 @media (max-width: 720px) {
-  .grid.two-col {
-    grid-template-columns: 1fr;
-  }
+  .grid.two-col { grid-template-columns: 1fr; }
 }
 
 .card, .info {
   background: var(--white);
-  border: 1px solid rgba(156,111,78,0.26); /* bronze edge */
+  border: 1px solid rgba(156,111,78,0.26);
   border-radius: 12px;
   padding: 20px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -220,7 +217,7 @@ body {
   border-color: rgba(44,44,84,0.22);
 }
 
-/* Gallery-specific card (image + caption) */
+/* Gallery cards */
 .gallery {
   display: grid;
   gap: 20px;
@@ -276,53 +273,50 @@ body {
   font-weight: 700;
 }
 
-.center-image {
-  text-align: center;
-  margin: 10px 0;
+/* Center images */
+.center-image { text-align: center; margin: 10px 0; }
+.center-image img { max-width: 100%; height: auto; display: inline-block; }
+
+/* === Game Embed (Increased vertical space, no-scroll) === */
+.game-embed-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  background: transparent;
+  padding: 0;
 }
 
-.center-image img {
-  max-width: 100%;
-  height: auto;
-  display: inline-block;
-}
-
-/* Aspect wrapper keeps the correct viewport and prevents scrollbars */
-.game-embed { width: 100%; max-width: 1200px; margin: 24px auto; padding: 0 12px; box-sizing: border-box; }
-
-/* Preferred: native aspect-ratio first for modern browsers */
 .game-frame-aspect {
-  width: 100%;
-  aspect-ratio: 16 / 9; /* change to 4/3, 3/2, or 1/1 if your game requires */
+  width: 100vw;
+  height: calc(100vh - 120px); /* INCREASED: taller game area (less subtracted) */
   background: #000;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
   display: block;
+  margin: 0;
+  padding: 0;
 }
 
-/* Fallback for older browsers using padding-top technique */
-@supports not (aspect-ratio: 16/9) {
-  .game-frame-aspect { position: relative; padding-top: 56.25%; }
-  .game-frame-aspect .game-iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
-}
-
-/* Iframe fills the wrapper exactly; remove iframe-internal scrollbars */
-.game-frame-aspect .game-iframe {
+.game-iframe {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
-  background: #000;
   overflow: hidden;
 }
 
-/* Larger mobile height if needed */
-@media (max-width: 520px) {
-  .game-frame-aspect { aspect-ratio: 4 / 3; } /* more vertical space on phones */
+/* Mobile tweak: still leave some space for header/footer/controls */
+@media (max-width: 600px) {
+  .game-frame-aspect { height: calc(100vh - 140px); } /* INCREASED for mobile */
 }
 
-/* Prevent parent styles from collapsing the embed */
-html, body { min-height: 100%; }
+/* Prevent page horizontal scroll; allow vertical scroll only if user wants page content below the iframe */
+html, body {
+  overflow-x: hidden;
+  /* allow vertical scroll if content is taller than viewport */
+  overflow-y: auto;
+}
 
 /* Footer */
 .site-footer {
@@ -378,10 +372,7 @@ a:focus, button:focus, input:focus {
   margin-bottom: 8px;
 }
 
-.input-container {
-  margin-bottom: 16px;
-}
-
+.input-container { margin-bottom: 16px; }
 .input-container:nth-of-type(4) {
   border-top: 1px solid rgba(156,111,78,0.24);
   padding-top: 16px;
@@ -394,4 +385,56 @@ a:focus, button:focus, input:focus {
   .nav { padding: 10px 14px; }
   .features, .grid { padding: 20px 12px; }
   .gallery .exhibit img { height: 140px; }
+}
+
+/* === Game scale-to-fit (native 1200x720) ===
+   Renders iframe at native size then scales to fit viewport.
+   This ensures the entire game is visible (no clipping). */
+
+.game-embed-root {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw; /* maintain full-bleed behavior you used earlier */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: transparent;
+  padding: 0;
+}
+
+/* The element we scale (keeps native pixel layout) */
+.game-frame-aspect {
+  width: 1500px;      /* native game width */
+  height: 800px;      /* native game height */
+  transform-origin: top left;
+  will-change: transform;
+  /* make sure no internal iframe scroll shows inside the visible scaled area */
+  overflow: hidden;
+  background: #000;
+  display: block;
+  border-radius: 0;
+}
+
+/* Make the iframe itself fill the native sized wrapper */
+.game-frame-aspect .game-iframe {
+  width: 1500px;    /* match wrapper native width */
+  height: 800px;    /* match wrapper native height */
+  border: 0;
+  display: block;
+}
+
+/* On very small viewports (tiny phones), provide a minimum scale cap
+   so the content never becomes completely tiny. Adjust if you want. */
+:root { --game-min-scale: 0.35; }
+
+/* optional: smooth transition when resizing */
+.game-frame-aspect {
+  transition: transform 180ms ease;
+}
+
+/* Make sure page doesn't hide the scaled iframe with other layout */
+html, body {
+  overflow-x: hidden;
 }
