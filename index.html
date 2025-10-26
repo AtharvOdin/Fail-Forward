@@ -78,5 +78,28 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <script>
+    // Restart typing animation on page load
+    window.addEventListener('load', () => {
+      const title = document.querySelector('.hero h1');
+      if (title) {
+        title.style.animation = 'none';
+        title.offsetHeight; // trigger reflow
+        title.style.animation = null;
+      }
+    });
+  </script>
+  <script>
+    window.addEventListener('load', () => {
+      const title = document.querySelector('.hero h1');
+      if (title) {
+        title.style.animation = 'none';
+        title.offsetHeight; // force reflow
+        title.style.animation = null;
+      }
+    });
+  </script>
+
 </body>
 </html>
